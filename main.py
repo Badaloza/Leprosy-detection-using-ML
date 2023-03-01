@@ -142,9 +142,11 @@ def index():
    img = Image.open(file.stream).convert("RGB") 
    img = np.asarray(img)
    rimg = cv2.resize(img, (300,300), interpolation = cv2.INTER_CUBIC)
+   bimg = cv2.resize(img, (64,64), interpolation = cv2.INTER_CUBIC)
    cc = 'detect_float.tflite'
+   dd = 'model.tflite'
    img = show(*run( rimg, cc), rimg)
-   flash(str(run( rimg, cc)))
+   flash(str(round(100*(1-run(bimg,dd)[0][0]),2)))
    img = Image.fromarray(img)
    with BytesIO() as buf:
     img.save(buf, 'jpeg')
