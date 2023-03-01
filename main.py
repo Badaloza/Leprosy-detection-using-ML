@@ -1,20 +1,20 @@
 import numpy as np
 import tensorflow as tf
 import cv2
-import os
+# import os
 from flask import Flask, flash, request, redirect, render_template
 from werkzeug.utils import secure_filename
 import base64
 from io import BytesIO
-import matplotlib.pyplot as plt
-import tempfile
-from six.moves.urllib.request import urlopen
+# import matplotlib.pyplot as plt
+# import tempfile
+# from six.moves.urllib.request import urlopen
 from six import BytesIO
 from PIL import Image
 from PIL import ImageColor
 from PIL import ImageDraw
 from PIL import ImageFont
-from PIL import ImageOps
+# from PIL import ImageOps
 from flask_ngrok import run_with_ngrok
 
 
@@ -114,7 +114,7 @@ def draw_boxes(image, boxes, class_names, scores, max_boxes=10, min_score=0.1):
 def show(li, path):
   li = li.tolist()
   a = np.array(li, dtype=np.float32)
-  b = np.array([b'1', b'2',b'3', b'4',b'5', b'6',b'7', b'8',b'9', b'10'], dtype=np.object)
+  b = np.array([b'1', b'2',b'3', b'4',b'5', b'6',b'7', b'8',b'9', b'10'], dtype=object)
   c = np.array([0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9], dtype=np.float32)
   return (draw_boxes(path,a,b,c))
 
@@ -142,7 +142,7 @@ def index():
    img = Image.open(file.stream).convert("RGB") 
    img = np.asarray(img)
    rimg = cv2.resize(img, (300,300), interpolation = cv2.INTER_CUBIC)
-   cc = 'blp_detect_float.tflite'
+   cc = 'detect_float.tflite'
    img = show(*run( rimg, cc), rimg)
    flash(str(run( rimg, cc)))
    img = Image.fromarray(img)
